@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVM-CodeZack</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <style>
+    .candidate-row {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      align-items: center;
+    }
+    .candidate-pic img {
+      border-radius: 50%;
+    }
+    .candidate-light img {
+      width: 50px;
+    }
+    .btn-vote {
+      width: 100%;
+    }
+    .col-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card {
+      margin-top: 20px;
+    }
+    .winner {
+      color: green;
+      font-weight: bold;
+    }
+    .hy
+    {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 46px;
+    }
+  </style>
+</head>
+<body>
+<div class="container mt-5">
+    <p class="text-center h1 text-danger">Code Zack's EVM</p>
+  <!-- <div class="row mb-3 text-center">
+    <div class="col-2 hy">Pic</div>
+    <div class="col-3 hy">Symbol</div>
+    <div class="col-3 hy">Name</div>
+    <div class="col-1 hy">Light</div>
+    <div class="col-3 hy">Button</div>
+  </div> -->
+
+  <div class="candidate-row row text-center">
+    <div class="col-2 col-center candidate-pic">
+      <img src="img/l1.webp" alt="Candidate Picture" class="d-block w-75">
+    </div>
+    <div class="col-3 col-center">
+      <img src="img/s2.png" alt="Symbol" class="d-block w-75">
+    </div>
+    <div class="col-3 col-center h2">Lallan Bhaiya</div>
+    <div class="col-1 col-center candidate-light"> 
+      <img src="img/ready.jpeg" alt="Light" class="d-block w-100 light">
+    </div>
+    <div class="col-3 col-center">
+      <a href="#" class="btn btn-info btn-vote" data-candidate="0">Vote</a>
+    </div>
+  </div>
+
+  <div class="candidate-row row text-center">
+    <div class="col-2 col-center candidate-pic">
+      <img src="img/l3.webp" alt="Candidate Picture" class="d-block w-75">
+    </div>
+    <div class="col-3 col-center">
+      <img src="img/s3.png" alt="Symbol" class="d-block w-75">
+    </div>
+    <div class="col-3 col-center h2">Raju Bhai</div>
+    <div class="col-1 col-center candidate-light"> 
+      <img src="img/ready.jpeg" alt="Light" class="d-block w-100 light">
+    </div>
+    <div class="col-3 col-center">
+      <a href="#" class="btn btn-info btn-vote" data-candidate="1">Vote</a>
+    </div>
+  </div>
+
+  <div class="candidate-row row text-center">
+    <div class="col-2 col-center candidate-pic">
+      <img src="img/l2.webp" alt="Candidate Picture" class="d-block w-75">
+    </div>
+    <div class="col-3 col-center">
+      <img src="img/s4.png" alt="Symbol" class="d-block w-75">
+    </div>
+    <div class="col-3 col-center h2">Kalesh Devi</div>
+    <div class="col-1 col-center candidate-light"> 
+      <img src="img/ready.jpeg" alt="Light" class="d-block w-100 light">
+    </div>
+    <div class="col-3 col-center">
+      <a href="#" class="btn btn-info btn-vote" data-candidate="2">Vote</a>
+    </div>
+  </div>
+
+  <div class="candidate-row row text-center">
+    <div class="col-2 col-center candidate-pic">
+      <img src="img/l4.jpg" alt="Candidate Picture" class="d-block w-75">
+    </div>
+    <div class="col-3 col-center">
+      <img src="img/s5.png" alt="Symbol" class="d-block w-75">
+    </div>
+    <div class="col-3 col-center h2">Ram Prasad</div>
+    <div class="col-1 col-center candidate-light"> 
+      <img src="img/ready.jpeg" alt="Light" class="d-block w-100 light">
+    </div>
+    <div class="col-3 col-center">
+      <a href="#" class="btn btn-info btn-vote" data-candidate="3">Vote</a>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-primary" id="countButton">Count</button>
+    <div class="mt-3" id="voteCounts"></div>
+  </div>
+
+  <audio id="beepSound" src="beep.wav" preload="auto"></audio>
+</div>
+
+<script>
+  const voteCounts = [0, 0, 0, 0];
+  const voteButtons = document.querySelectorAll('.btn-vote');
+  const countButton = document.getElementById('countButton');
+  const voteCountsDisplay = document.getElementById('voteCounts');
+  const beepSound = document.getElementById('beepSound');
+
+  voteButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      const candidateIndex = button.getAttribute('data-candidate');
+      voteCounts[candidateIndex]++;
+      const light = button.closest('.candidate-row').querySelector('.light');
+      light.src = "img/green.jpeg"; // Change light to green
+      beepSound.play().catch(error => console.error('Error playing sound:', error)); // Play beep sound
+      setTimeout(() => {
+        light.src = "img/ready.jpeg"; // Change light back to ready
+      }, 1000); // Delay in milliseconds
+    });
+  });
+
+  countButton.addEventListener('click', () => {
+    let maxVotes = Math.max(...voteCounts);
+    voteCountsDisplay.innerHTML = `
+      <div class="card">
+        <div class="card-body ${voteCounts[0] === maxVotes ? 'winner' : ''}">
+          <h5 class="card-title">${voteCounts[0] === maxVotes ? 'Winner: ' : ''}Lallan Bhaiya</h5>
+          <p class="card-text">${voteCounts[0]} votes</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body ${voteCounts[1] === maxVotes ? 'winner' : ''}">
+          <h5 class="card-title">${voteCounts[1] === maxVotes ? 'Winner: ' : ''}Raju Bhai</h5>
+          <p class="card-text">${voteCounts[1]} votes</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body ${voteCounts[2] === maxVotes ? 'winner' : ''}">
+          <h5 class="card-title">${voteCounts[2] === maxVotes ? 'Winner: ' : ''}Kalesh Devi</h5>
+          <p class="card-text">${voteCounts[2]} votes</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body ${voteCounts[3] === maxVotes ? 'winner' : ''}">
+          <h5 class="card-title">${voteCounts[3] === maxVotes ? 'Winner: ' : ''}Ram Prasad</h5>
+          <p class="card-text">${voteCounts[3]} votes</p>
+        </div>
+      </div>
+    `;
+  });
+</script>
+</body>
+</html>
